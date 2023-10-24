@@ -1,26 +1,171 @@
 import { serve } from "https://deno.land/std@0.119.0/http/server.ts";
 
-import { promises as fsPromises } from 'fs';
-
-// Charger la liste de mots français depuis le fichier
-const motsFrancais = (await fsPromises.readFile('Hunspell_6_3_Flexions_Mots.txt', 'utf-8')).split('\n');
+const motsFrancais = `
+maison
+chien
+chat
+voiture
+école
+livre
+fleur
+arbre
+soleil
+mer
+montagne
+ami
+famille
+travail
+voyage
+restaurant
+musique
+film
+photo
+téléphone
+ordinateur
+internet
+eau
+feu
+air
+terre
+heure
+jour
+nuit
+semaine
+mois
+année
+rire
+pleurer
+manger
+boire
+dormir
+courir
+marcher
+nager
+voler
+sauter
+jouer
+écouter
+regarder
+lire
+écrire
+parler
+penser
+aimer
+détester
+heureux
+triste
+en colère
+fatigué
+fort
+faible
+grand
+petit
+chaud
+froid
+rapide
+lent
+beau
+laid
+neuf
+vieux
+bon
+mauvais
+facile
+difficile
+vrai
+faux
+libre
+occupé
+calme
+bruyant
+propre
+sale
+simple
+complexe
+proche
+loin
+fort
+faible
+clair
+sombre
+doux
+dur
+gentil
+méchant
+jeune
+vieux
+sain
+malade
+ouvert
+fermé
+heureux
+triste
+riche
+pauvre
+sûr
+dangereux
+facile
+difficile
+public
+privé
+intérieur
+extérieur
+haut
+bas
+fort
+faible
+plein
+vide
+lent
+rapide
+fort
+faible
+propre
+sale
+léger
+lourd
+sec
+mouillé
+chaud
+froid
+épais
+mince
+ouvert
+fermé
+doux
+dur
+simple
+complexe
+court
+long
+étroit
+large
+droit
+tordu
+proche
+loin
+en haut
+en bas
+devant
+derrière
+dedans
+dehors
+ensemble
+`; // Ajoutez tous les mots nécessaires ici
 
 // Fonction pour générer un mot aléatoire à partir de la liste
 function genererMotFrancaisAleatoire(): string {
-  const motAleatoire = motsFrancais[Math.floor(Math.random() * motsFrancais.length)];
+  const motsArray = motsFrancais.split('\n');
+  const motAleatoire = motsArray[Math.floor(Math.random() * motsArray.length)];
   return motAleatoire.trim(); // Retirez les espaces inutiles
 }
+
 
 // Utilisez la fonction pour générer un mot français aléatoire
 const motFrancaisAleatoire = genererMotFrancaisAleatoire();
 
 // Affichez le mot généré
 console.log(motFrancaisAleatoire);
-
-// Sauvegardez le mot dans un fichier
-fs.writeFileSync('mot-genere.txt', motFrancaisAleatoire, 'utf-8');
-
-console.log('Le mot généré a été sauvegardé dans le fichier mot-genere.txt');
 
 
 async function handler(_req: Request): Promise<Response> {
