@@ -162,7 +162,9 @@ function genererMotFrancaisAleatoire(): string {
 
 
 // Utilisez la fonction pour générer un mot français aléatoire
-const motFrancaisAleatoire = genererMotFrancaisAleatoire();
+let motFrancaisAleatoire = genererMotFrancaisAleatoire();
+
+
 
 // Affichez le mot généré
 console.log(motFrancaisAleatoire);
@@ -194,6 +196,7 @@ const extractGuess = async (req: Request) => {
 
 const responseBuilder = (word: string, similarity: Number) => {
   if (similarity == 1) {
+    motFrancaisAleatoire = genererMotFrancaisAleatoire()
     return `Well played ! The word was ${word}.`;
   } else if (similarity > 0.5) {
     return `${word} is very close to the word, score : ${similarity}`;
