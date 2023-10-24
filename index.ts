@@ -1,8 +1,31 @@
 import { serve } from "https://deno.land/std@0.119.0/http/server.ts";
 
+import * as fs from 'fs';
+
+// Charger la liste de mots français depuis le fichier
+const motsFrancais = fs.readFileSync('mots-francais.txt', 'utf-8').split('\n');
+
+// Fonction pour générer un mot aléatoire à partir de la liste
+function genererMotFrancaisAleatoire(): string {
+  const motAleatoire = motsFrancais[Math.floor(Math.random() * motsFrancais.length)];
+  return motAleatoire.trim(); // Retirez les espaces inutiles
+}
+
+// Utilisez la fonction pour générer un mot français aléatoire
+const motFrancaisAleatoire = genererMotFrancaisAleatoire();
+
+// Affichez le mot généré
+console.log(motFrancaisAleatoire);
+
+// Sauvegardez le mot dans un fichier
+fs.writeFileSync('mot-genere.txt', motFrancaisAleatoire, 'utf-8');
+
+console.log('Le mot généré a été sauvegardé dans le fichier mot-genere.txt');
+
+
 async function handler(_req: Request): Promise<Response> {
   try {
-    const wordToFind = "chien";
+    const wordToFind = motFrancaisAleatoire;
     const guess = await extractGuess(_req);
     const similarityResult = await similarity(guess, wordToFind);
     console.log(
