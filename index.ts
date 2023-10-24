@@ -1,9 +1,9 @@
 import { serve } from "https://deno.land/std@0.119.0/http/server.ts";
 
-import * as fs from 'fs';
+import { promises as fsPromises } from 'fs';
 
 // Charger la liste de mots français depuis le fichier
-const motsFrancais = fs.readFileSync('mots-francais.txt', 'utf-8').split('\n');
+const motsFrancais = (await fsPromises.readFile('mots-francais.txt', 'utf-8')).split('\n');
 
 // Fonction pour générer un mot aléatoire à partir de la liste
 function genererMotFrancaisAleatoire(): string {
